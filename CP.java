@@ -606,13 +606,27 @@ public class Main {
             return;
         }
 
-        boolean removed = users.removeIf(u -> u.getUsername().equals(username));
+        Iterator<UserAccount> it = users.iterator();
+        boolean deleted = false;
+        while (it.hasNext()) {
+            UserAccount u = it.next();
+            if (u.getUsername().equals(username)) {
+                System.out.print("Are you sure you want to delete " + u.getUsername() + "? (y/n): ");
+                String delConfirmStr = scanner.nextLine().trim().toLowerCase();
+                boolean delConfirm = delConfirmStr.equals("y");
+                if (delConfirm){
+                    it.remove();
+                    deleted = true;
+                }
+                break;
+            }
+        }
 
-        if (removed) {
+        if (deleted) {
             saveUsers();
             System.out.println("User deleted succesfully.");
         } else {
-            System.out.println("User is not founded.");
+            System.out.println("Error: user is not founded or deletion was canceled.");
         }
     }
 
