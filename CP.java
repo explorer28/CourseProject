@@ -91,7 +91,7 @@ class UserAccount implements Serializable {
 }
 
 //main class
-public class BusStationApp {
+public class Main {
     private static final String ROUTES_DATA_FILE = "bus_routes.dat";
     private static final String ACCOUNTS_DATA_FILE = "user_accounts.dat";
 
@@ -102,7 +102,7 @@ public class BusStationApp {
     private UserAccount currentUser;
 
     public static void main(String[] args) {
-        BusStationApp app = new BusStationApp();
+        Main app = new Main();
         app.loadData();
         app.authMenu();
     }
