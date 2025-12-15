@@ -2,7 +2,7 @@ import java.io.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors; 
+import java.util.stream.Collectors;
 
 //bus route class
 class BusRoute implements Serializable {
@@ -106,7 +106,7 @@ public class Main {
         app.loadData();
         app.authMenu();
     }
-    
+
     //data loader
     private void loadData() {
         //routes loader
@@ -446,21 +446,28 @@ public class Main {
         String routeNumber = scanner.nextLine().trim();
 
         Iterator<BusRoute> it = routes.iterator();
-        boolean found = false;
+        boolean deleted = false;
         while (it.hasNext()) {
             BusRoute r = it.next();
             if (r.getRouteNumber().equals(routeNumber)) {
-                it.remove();
-                found = true;
+                System.out.println("Old route data: ");
+                System.out.println(r);
+                System.out.print("Are you sure you want to delete this route? (y/n): ");
+                String delConfirmStr = scanner.nextLine().trim().toLowerCase();
+                boolean delConfirm = delConfirmStr.equals("y");
+                if (delConfirm){
+                    it.remove();
+                    deleted = true;
+                }
                 break;
             }
         }
 
-        if (found) {
+        if (deleted) {
             saveRoutes();
             System.out.println("Route deleted succesfully.");
         } else {
-            System.out.println("Route with this number is not founded.");
+            System.out.println("Error: route with this number is not founded or deletion was canceled.");
         }
     }
 
